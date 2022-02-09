@@ -1,6 +1,6 @@
 package com.paulo.core.navigation
 
-object Routes {
+object Route {
     const val WELCOME = "welcome"
     const val AGE = "age"
     const val GENDER = "gender"
