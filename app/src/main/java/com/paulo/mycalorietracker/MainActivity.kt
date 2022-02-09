@@ -7,11 +7,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 
 import androidx.navigation.compose.rememberNavController
-import com.paulo.core.navigation.Routes
+import com.paulo.core.navigation.Route
+import com.paulo.onboarding_presentation.gender.GenderScreen
 import com.paulo.onboarding_presentation.welcome.WelcomeScreen
 import com.plcoding.calorytracker.ui.theme.CaloryTrackerTheme
+import dagger.hilt.android.AndroidEntryPoint
 import navigate
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,20 +23,22 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 NavHost(
                     navController = navController,
-                    startDestination = Routes.WELCOME
+                    startDestination = Route.WELCOME
                 ){
-                    composable(Routes.WELCOME){
+                    composable(Route.WELCOME){
                         WelcomeScreen(onNavigate = navController::navigate)
                     }
-                    composable(Routes.AGE){}
-                    composable(Routes.GENDER){}
-                    composable(Routes.HEIGHT){}
-                    composable(Routes.WEIGHT){}
-                    composable(Routes.NUTRIENT_GOAL){}
-                    composable(Routes.GOAL){}
-                    composable(Routes.ACTIVITY){}
-                    composable(Routes.TRACKER_OVERVIEW){}
-                    composable(Routes.SEARCH){}
+                    composable(Route.AGE){}
+                    composable(Route.GENDER){
+                        GenderScreen(onNavigate = navController::navigate)
+                    }
+                    composable(Route.HEIGHT){}
+                    composable(Route.WEIGHT){}
+                    composable(Route.NUTRIENT_GOAL){}
+                    composable(Route.GOAL){}
+                    composable(Route.ACTIVITY){}
+                    composable(Route.TRACKER_OVERVIEW){}
+                    composable(Route.SEARCH){}
                 }
             }
         }
