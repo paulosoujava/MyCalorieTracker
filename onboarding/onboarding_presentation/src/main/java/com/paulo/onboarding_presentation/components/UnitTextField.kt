@@ -2,13 +2,16 @@ package com.paulo.onboarding_presentation.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.LastBaseline
+import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.sp
 import com.paulo.core_ui.LocalSpacing
@@ -20,7 +23,7 @@ fun UnitTextField(
     onValueChange: (String) -> Unit,
     unit: String,
     modifier: Modifier = Modifier,
-    textStyle: TextStyle = TextStyle(
+            textStyle: TextStyle = TextStyle(
         color = MaterialTheme.colors.primaryVariant,
         fontSize = 70.sp
     ),
@@ -35,7 +38,7 @@ fun UnitTextField(
             onValueChange = onValueChange,
             textStyle = textStyle,
             keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Number
+                keyboardType = KeyboardType.Number,
             ),
             singleLine = true,
             modifier = Modifier
