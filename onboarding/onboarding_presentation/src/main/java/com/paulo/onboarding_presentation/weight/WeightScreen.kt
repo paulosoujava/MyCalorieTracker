@@ -1,4 +1,5 @@
-package com.paulo.onboarding_presentation.age
+package com.paulo.onboarding_presentation.weight
+
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
@@ -14,30 +15,29 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.paulo.core.R
-import com.paulo.core.domain.model.Gender
 import com.paulo.core.util.UiEvent
 import com.paulo.core_ui.LocalSpacing
 import com.paulo.onboarding_presentation.components.ActionButton
 import com.paulo.onboarding_presentation.components.SelectableButton
 import com.paulo.onboarding_presentation.components.UnitTextField
+import com.paulo.onboarding_presentation.height.WeightViewModel
 import kotlinx.coroutines.flow.collect
 
 @Composable
-fun AgeScreen(
+fun WeightScreen(
     scaffoldState: ScaffoldState,
     onNavigate: (UiEvent.Navigate) -> Unit,
-    viewModel: AgeViewModel = hiltViewModel()
+    viewModel: WeightViewModel = hiltViewModel()
 ) {
     val spacing = LocalSpacing.current
     val context = LocalContext.current
-
     LaunchedEffect(key1 = true) {
-        viewModel.uiEvent.collect { ev ->
-            when (ev) {
-                is UiEvent.Navigate -> onNavigate(ev)
+        viewModel.uiEvent.collect { event ->
+            when (event) {
+                is UiEvent.Navigate -> onNavigate(event)
                 is UiEvent.ShowSnackbar -> {
                     scaffoldState.snackbarHostState.showSnackbar(
-                        message = ev.message.asString(context)
+                        message = event.message.asString(context)
                     )
                 }
                 else -> Unit
@@ -55,15 +55,15 @@ fun AgeScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = stringResource(id = R.string.whats_your_age),
+                text = stringResource(id = R.string.whats_your_weight),
                 style = MaterialTheme.typography.h3
             )
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
-          UnitTextField(
-              value = viewModel.age,
-              onValueChange = viewModel::onAgeEnter,
-              unit = stringResource(id = R.string.years),
-          )
+            UnitTextField(
+                value = viewModel.weight,
+                onValueChange = viewModel::onWeightEnter,
+                unit = stringResource(id = R.string.kg)
+            )
         }
         ActionButton(
             text = stringResource(id = R.string.next),
