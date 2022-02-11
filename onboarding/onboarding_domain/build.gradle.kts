@@ -4,4 +4,5 @@ apply {
 // if you have dependencies to this module
 dependencies {
     "implementation"(project(Modules.core))
+    "implementation"(Coroutines.coroutines)
 }
