@@ -1,4 +1,4 @@
-package com.paulo.core.domain
+package com.paulo.core.data.preferences
 
 import android.content.SharedPreferences
 import com.paulo.core.domain.model.ActivityLevel
@@ -71,6 +71,20 @@ class DefaultPreferences(
     }
 
 
+    override fun saveShouldShowOnboarding(shouldShow: Boolean) {
+        setBooleanSharedPref(Preferences.KEY_SHOULD_SHOW_ONBOARDING, shouldShow)
+    }
+
+    override fun loadShouldShowOnBoarding(): Boolean {
+        return sharedPref.getBoolean(Preferences.KEY_SHOULD_SHOW_ONBOARDING, true)
+    }
+
+    private fun setBooleanSharedPref( key: String, value: Boolean ){
+        sharedPref.edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
     private fun setStringSharedPref( key: String, value: String ){
         sharedPref.edit()
             .putString(key, value)
@@ -87,4 +101,5 @@ class DefaultPreferences(
             .putFloat(key, value)
             .apply()
     }
+
 }

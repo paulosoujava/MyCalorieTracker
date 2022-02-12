@@ -3,7 +3,7 @@ package com.paulo.mycalorietracker.di
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import com.paulo.core.domain.DefaultPreferences
+import com.paulo.core.data.preferences.DefaultPreferences
 import com.paulo.core.domain.preferences.Preferences
 import com.paulo.core.domain.usecase.FilterOutDigits
 import dagger.Module
