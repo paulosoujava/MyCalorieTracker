@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import com.paulo.core.R
-import com.paulo.tracker_presentation.composable.UnitDisplay
+import com.paulo.tracker_presentation.component.UnitDisplay
 
 @Composable
 fun NutrientBarInfo (

@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.sp
 import com.paulo.core_ui.CarbColor
 import com.paulo.core_ui.FatColor
 import com.paulo.core_ui.ProteinColor
-import com.paulo.tracker_presentation.composable.UnitDisplay
+import com.paulo.tracker_presentation.component.UnitDisplay
 import com.paulo.tracker_presentation.tracker_overview.TrackerOverviewState
 
 @Composable

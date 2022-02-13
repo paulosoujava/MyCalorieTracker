@@ -1,4 +1,4 @@
-package com.paulo.tracker_presentation.composable
+package com.paulo.tracker_presentation.component
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,7 +12,6 @@ import androidx.compose.ui.layout.LastBaseline
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import com.paulo.core_ui.LocalSpacing
-import java.time.format.TextStyle
 
 @Composable
 fun UnitDisplay(
