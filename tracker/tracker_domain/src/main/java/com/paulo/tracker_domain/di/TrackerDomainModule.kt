@@ -16,7 +16,7 @@ object TrackerDomainModule {
     @ViewModelScoped
     @Provides
     fun provideTrackerUseCase(
-        preferences: Preferences
+        preferences: Preferences,
         repository: TrackerRepository
     ): TrackerUseCases {
         return TrackerUseCases(
