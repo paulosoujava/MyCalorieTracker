@@ -23,14 +23,14 @@ import kotlinx.coroutines.flow.collect
 
 @Composable
 fun GoalScreen(
-    onNavigate: (UiEvent.Navigate) -> Unit,
+    onNextClick: () -> Unit,
     viewModel: GoalViewModel = hiltViewModel()
 ) {
     val spacing = LocalSpacing.current
     LaunchedEffect(key1 = true) {
-        viewModel.uiEvent.collect { ev ->
-            when (ev) {
-                is UiEvent.Navigate -> onNavigate(ev)
+        viewModel.uiEvent.collect { event ->
+            when (event) {
+                is UiEvent.Success -> onNextClick()
                 else -> Unit
             }
         }
@@ -51,22 +51,43 @@ fun GoalScreen(
             )
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
             Row {
-                buildButton(
-                    stringId = R.string.keep,
-                    isSelected = viewModel.selectedGoal is GoalType.KeepWeight,
-                    onClick = { viewModel.onGoalTypeClick(GoalType.KeepWeight) }
-                )
-                Spacer(modifier = Modifier.width(spacing.spaceMedium))
-                buildButton(
-                    stringId = R.string.gain,
-                    isSelected = viewModel.selectedGoal is GoalType.GainWeight,
-                    onClick = { viewModel.onGoalTypeClick(GoalType.GainWeight) }
-                )
-                Spacer(modifier = Modifier.width(spacing.spaceMedium))
-                buildButton(
-                    stringId = R.string.lose,
+                SelectableButton(
+                    text = stringResource(id = R.string.lose),
                     isSelected = viewModel.selectedGoal is GoalType.LoseWeight,
-                    onClick = { viewModel.onGoalTypeClick(GoalType.LoseWeight) }
+                    color = MaterialTheme.colors.primaryVariant,
+                    selectedTextColor = Color.White,
+                    onClick = {
+                        viewModel.onGoalTypeSelect(GoalType.LoseWeight)
+                    },
+                    textStyle = MaterialTheme.typography.button.copy(
+                        fontWeight = FontWeight.Normal
+                    )
+                )
+                Spacer(modifier = Modifier.width(spacing.spaceMedium))
+                SelectableButton(
+                    text = stringResource(id = R.string.keep),
+                    isSelected = viewModel.selectedGoal is GoalType.KeepWeight,
+                    color = MaterialTheme.colors.primaryVariant,
+                    selectedTextColor = Color.White,
+                    onClick = {
+                        viewModel.onGoalTypeSelect(GoalType.KeepWeight)
+                    },
+                    textStyle = MaterialTheme.typography.button.copy(
+                        fontWeight = FontWeight.Normal
+                    )
+                )
+                Spacer(modifier = Modifier.width(spacing.spaceMedium))
+                SelectableButton(
+                    text = stringResource(id = R.string.gain),
+                    isSelected = viewModel.selectedGoal is GoalType.GainWeight,
+                    color = MaterialTheme.colors.primaryVariant,
+                    selectedTextColor = Color.White,
+                    onClick = {
+                        viewModel.onGoalTypeSelect(GoalType.GainWeight)
+                    },
+                    textStyle = MaterialTheme.typography.button.copy(
+                        fontWeight = FontWeight.Normal
+                    )
                 )
             }
         }
@@ -76,18 +97,4 @@ fun GoalScreen(
             modifier = Modifier.align(Alignment.BottomEnd)
         )
     }
-}
-
-@Composable
-fun buildButton(stringId: Int, isSelected: Boolean, onClick: () -> Unit) {
-    SelectableButton(
-        text = stringResource(id = stringId),
-        isSelected = isSelected,
-        color = MaterialTheme.colors.primaryVariant,
-        selectedTextColor = Color.White,
-        onClick = onClick,
-        textStyle = MaterialTheme.typography.button.copy(
-            fontWeight = FontWeight.Normal
-        )
-    )
 }

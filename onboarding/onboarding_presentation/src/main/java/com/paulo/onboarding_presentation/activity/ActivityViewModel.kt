@@ -22,20 +22,22 @@ class ActivityViewModel @Inject constructor(
     private val preferences: Preferences
 ): ViewModel() {
 
-    var selectedActivityLevel by mutableStateOf<ActivityLevel>(ActivityLevel.Medium)
+    var selectedActivityLevel by mutableStateOf<ActivityLevel>(
+        ActivityLevel.Medium
+    )
         private set
 
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
-    fun onActivityLevelClick(activityLevel: ActivityLevel) {
+    fun onActivityLevelSelect(activityLevel: ActivityLevel) {
         selectedActivityLevel = activityLevel
     }
 
     fun onNextClick() {
         viewModelScope.launch {
             preferences.saveActivityLevel(selectedActivityLevel)
-            _uiEvent.send(UiEvent.Navigate(Route.GOAL))
+            _uiEvent.send(UiEvent.Success)
         }
     }
 }

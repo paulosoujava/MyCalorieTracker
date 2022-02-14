@@ -1,10 +1,9 @@
 package com.paulo.tracker_presentation.tracker_overview
 
 import androidx.annotation.DrawableRes
-import com.paulo.core.R
 import com.paulo.core.util.UiText
 import com.paulo.tracker_domain.model.MealType
-
+import com.paulo.core.R
 
 data class Meal(
     val name: UiText,
@@ -19,6 +18,11 @@ data class Meal(
 
 val defaultMeals = listOf(
     Meal(
+        name = UiText.StringResource(R.string.breakfast),
+        drawableRes = R.drawable.ic_breakfast,
+        mealType = MealType.Breakfast
+    ),
+    Meal(
         name = UiText.StringResource(R.string.lunch),
         drawableRes = R.drawable.ic_lunch,
         mealType = MealType.Lunch
@@ -29,8 +33,8 @@ val defaultMeals = listOf(
         mealType = MealType.Dinner
     ),
     Meal(
-            name = UiText.StringResource(R.string.snacks),
-    drawableRes = R.drawable.ic_snack,
-    mealType = MealType.Snack
-)
+        name = UiText.StringResource(R.string.snacks),
+        drawableRes = R.drawable.ic_snack,
+        mealType = MealType.Snack
+    ),
 )

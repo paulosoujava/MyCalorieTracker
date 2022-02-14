@@ -21,14 +21,14 @@ import kotlinx.coroutines.flow.collect
 
 @Composable
 fun GenderScreen(
-    onNavigate: (UiEvent.Navigate) -> Unit,
+    onNextClick: () -> Unit,
     viewModel: GenderViewModel = hiltViewModel()
 ) {
     val spacing = LocalSpacing.current
     LaunchedEffect(key1 = true) {
-        viewModel.uiEvent.collect { ev ->
-            when (ev) {
-                is UiEvent.Navigate -> onNavigate(ev)
+        viewModel.uiEvent.collect { event ->
+            when (event) {
+                is UiEvent.Success -> onNextClick()
                 else -> Unit
             }
         }
@@ -49,18 +49,7 @@ fun GenderScreen(
             )
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
             Row {
-                buildButton(
-                    stringId = R.string.male,
-                    isSelected = viewModel.selectedGender is Gender.Male,
-                    onClick = { viewModel.onGenderClick(Gender.Male) }
-                )
-                Spacer(modifier = Modifier.width(spacing.spaceMedium))
-                buildButton(
-                    stringId = R.string.female,
-                    isSelected = viewModel.selectedGender is Gender.Female,
-                    onClick = { viewModel.onGenderClick(Gender.Female) }
-                )
-                /*SelectableButton(
+                SelectableButton(
                     text = stringResource(id = R.string.male),
                     isSelected = viewModel.selectedGender is Gender.Male,
                     color = MaterialTheme.colors.primaryVariant,
@@ -72,6 +61,7 @@ fun GenderScreen(
                         fontWeight = FontWeight.Normal
                     )
                 )
+                Spacer(modifier = Modifier.width(spacing.spaceMedium))
                 SelectableButton(
                     text = stringResource(id = R.string.female),
                     isSelected = viewModel.selectedGender is Gender.Female,
@@ -83,7 +73,7 @@ fun GenderScreen(
                     textStyle = MaterialTheme.typography.button.copy(
                         fontWeight = FontWeight.Normal
                     )
-                )*/
+                )
             }
         }
         ActionButton(
@@ -92,18 +82,4 @@ fun GenderScreen(
             modifier = Modifier.align(Alignment.BottomEnd)
         )
     }
-}
-
-@Composable
-fun buildButton(stringId: Int, isSelected: Boolean, onClick: () -> Unit) {
-    SelectableButton(
-        text = stringResource(id = stringId),
-        isSelected = isSelected,
-        color = MaterialTheme.colors.primaryVariant,
-        selectedTextColor = Color.White,
-        onClick = onClick,
-        textStyle = MaterialTheme.typography.button.copy(
-            fontWeight = FontWeight.Normal
-        )
-    )
 }

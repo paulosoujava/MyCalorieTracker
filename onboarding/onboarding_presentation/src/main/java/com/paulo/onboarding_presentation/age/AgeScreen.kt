@@ -25,19 +25,18 @@ import kotlinx.coroutines.flow.collect
 @Composable
 fun AgeScreen(
     scaffoldState: ScaffoldState,
-    onNavigate: (UiEvent.Navigate) -> Unit,
+    onNextClick: () -> Unit,
     viewModel: AgeViewModel = hiltViewModel()
 ) {
     val spacing = LocalSpacing.current
     val context = LocalContext.current
-
     LaunchedEffect(key1 = true) {
-        viewModel.uiEvent.collect { ev ->
-            when (ev) {
-                is UiEvent.Navigate -> onNavigate(ev)
+        viewModel.uiEvent.collect { event ->
+            when (event) {
+                is UiEvent.Success -> onNextClick()
                 is UiEvent.ShowSnackbar -> {
                     scaffoldState.snackbarHostState.showSnackbar(
-                        message = ev.message.asString(context)
+                        message = event.message.asString(context)
                     )
                 }
                 else -> Unit
@@ -59,11 +58,11 @@ fun AgeScreen(
                 style = MaterialTheme.typography.h3
             )
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
-          UnitTextField(
-              value = viewModel.age,
-              onValueChange = viewModel::onAgeEnter,
-              unit = stringResource(id = R.string.years),
-          )
+            UnitTextField(
+                value = viewModel.age,
+                onValueChange = viewModel::onAgeEnter,
+                unit = stringResource(id = R.string.years)
+            )
         }
         ActionButton(
             text = stringResource(id = R.string.next),

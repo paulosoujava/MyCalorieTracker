@@ -98,7 +98,7 @@ class SearchViewModel @Inject constructor(
             val uiState = state.trackableFood.find { it.food == event.food }
             trackerUseCases.trackFood(
                 food = uiState?.food ?: return@launch,
-                amount = uiState.amount.toIntOrNull() ?: return@launch,
+                amount = uiState?.amount?.toIntOrNull() ?: return@launch,
                 mealType = event.mealType,
                 date = event.date
             )

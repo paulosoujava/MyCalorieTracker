@@ -21,7 +21,7 @@ import kotlinx.coroutines.flow.collect
 @Composable
 fun NutrientGoalScreen(
     scaffoldState: ScaffoldState,
-    onNavigate: (UiEvent.Navigate) -> Unit,
+    onNextClick: () -> Unit,
     viewModel: NutrientGoalViewModel = hiltViewModel()
 ) {
     val spacing = LocalSpacing.current
@@ -29,7 +29,7 @@ fun NutrientGoalScreen(
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { event ->
             when (event) {
-                is UiEvent.Navigate -> onNavigate(event)
+                is UiEvent.Success -> onNextClick()
                 is UiEvent.ShowSnackbar -> {
                     scaffoldState.snackbarHostState.showSnackbar(
                         message = event.message.asString(context)
@@ -63,25 +63,25 @@ fun NutrientGoalScreen(
             )
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
             UnitTextField(
-                value = viewModel.state.fatRatio,
-                onValueChange = {
-                    viewModel.onEvent(NutrientGoalEvent.OnFatbRatioEnter(it))
-                },
-                unit = stringResource(id = R.string.percent_fats)
-            )
-            Spacer(modifier = Modifier.height(spacing.spaceMedium))
-            UnitTextField(
                 value = viewModel.state.proteinRatio,
                 onValueChange = {
                     viewModel.onEvent(NutrientGoalEvent.OnProteinRatioEnter(it))
                 },
                 unit = stringResource(id = R.string.percent_proteins)
             )
+            Spacer(modifier = Modifier.height(spacing.spaceMedium))
+            UnitTextField(
+                value = viewModel.state.fatRatio,
+                onValueChange = {
+                    viewModel.onEvent(NutrientGoalEvent.OnFatRatioEnter(it))
+                },
+                unit = stringResource(id = R.string.percent_fats)
+            )
         }
         ActionButton(
             text = stringResource(id = R.string.next),
             onClick = {
-                      viewModel.onEvent(NutrientGoalEvent.OnNextClick)
+                viewModel.onEvent(NutrientGoalEvent.OnNextClick)
             },
             modifier = Modifier.align(Alignment.BottomEnd)
         )

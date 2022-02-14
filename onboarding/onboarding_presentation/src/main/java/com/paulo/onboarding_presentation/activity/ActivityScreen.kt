@@ -22,14 +22,14 @@ import kotlinx.coroutines.flow.collect
 
 @Composable
 fun ActivityScreen(
-    onNavigate: (UiEvent.Navigate) -> Unit,
+    onNextClick: () -> Unit,
     viewModel: ActivityViewModel = hiltViewModel()
 ) {
     val spacing = LocalSpacing.current
     LaunchedEffect(key1 = true) {
-        viewModel.uiEvent.collect { ev ->
-            when (ev) {
-                is UiEvent.Navigate -> onNavigate(ev)
+        viewModel.uiEvent.collect { event ->
+            when (event) {
+                is UiEvent.Success -> onNextClick()
                 else -> Unit
             }
         }
@@ -50,22 +50,43 @@ fun ActivityScreen(
             )
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
             Row {
-                buildButton(
-                    stringId = R.string.low,
+                SelectableButton(
+                    text = stringResource(id = R.string.low),
                     isSelected = viewModel.selectedActivityLevel is ActivityLevel.Low,
-                    onClick = { viewModel.onActivityLevelClick(ActivityLevel.Low) }
+                    color = MaterialTheme.colors.primaryVariant,
+                    selectedTextColor = Color.White,
+                    onClick = {
+                        viewModel.onActivityLevelSelect(ActivityLevel.Low)
+                    },
+                    textStyle = MaterialTheme.typography.button.copy(
+                        fontWeight = FontWeight.Normal
+                    )
                 )
                 Spacer(modifier = Modifier.width(spacing.spaceMedium))
-                buildButton(
-                    stringId = R.string.medium,
+                SelectableButton(
+                    text = stringResource(id = R.string.medium),
                     isSelected = viewModel.selectedActivityLevel is ActivityLevel.Medium,
-                    onClick = { viewModel.onActivityLevelClick(ActivityLevel.Medium) }
+                    color = MaterialTheme.colors.primaryVariant,
+                    selectedTextColor = Color.White,
+                    onClick = {
+                        viewModel.onActivityLevelSelect(ActivityLevel.Medium)
+                    },
+                    textStyle = MaterialTheme.typography.button.copy(
+                        fontWeight = FontWeight.Normal
+                    )
                 )
                 Spacer(modifier = Modifier.width(spacing.spaceMedium))
-                buildButton(
-                    stringId = R.string.high,
+                SelectableButton(
+                    text = stringResource(id = R.string.high),
                     isSelected = viewModel.selectedActivityLevel is ActivityLevel.High,
-                    onClick = { viewModel.onActivityLevelClick(ActivityLevel.High) }
+                    color = MaterialTheme.colors.primaryVariant,
+                    selectedTextColor = Color.White,
+                    onClick = {
+                        viewModel.onActivityLevelSelect(ActivityLevel.High)
+                    },
+                    textStyle = MaterialTheme.typography.button.copy(
+                        fontWeight = FontWeight.Normal
+                    )
                 )
             }
         }
@@ -75,18 +96,4 @@ fun ActivityScreen(
             modifier = Modifier.align(Alignment.BottomEnd)
         )
     }
-}
-
-@Composable
-fun buildButton(stringId: Int, isSelected: Boolean, onClick: () -> Unit) {
-    SelectableButton(
-        text = stringResource(id = stringId),
-        isSelected = isSelected,
-        color = MaterialTheme.colors.primaryVariant,
-        selectedTextColor = Color.White,
-        onClick = onClick,
-        textStyle = MaterialTheme.typography.button.copy(
-            fontWeight = FontWeight.Normal
-        )
-    )
 }

@@ -22,20 +22,22 @@ class GoalViewModel @Inject constructor(
     private val preferences: Preferences
 ): ViewModel() {
 
-    var selectedGoal by mutableStateOf<GoalType>(GoalType.KeepWeight)
+    var selectedGoal by mutableStateOf<GoalType>(
+        GoalType.KeepWeight
+    )
         private set
 
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
-    fun onGoalTypeClick(goalType: GoalType) {
+    fun onGoalTypeSelect(goalType: GoalType) {
         selectedGoal = goalType
     }
 
     fun onNextClick() {
         viewModelScope.launch {
             preferences.saveGoalType(selectedGoal)
-            _uiEvent.send(UiEvent.Navigate(Route.NUTRIENT_GOAL))
+            _uiEvent.send(UiEvent.Success)
         }
     }
 }
