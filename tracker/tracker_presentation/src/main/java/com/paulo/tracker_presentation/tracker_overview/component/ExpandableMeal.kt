@@ -16,6 +16,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.layout.*
+import androidx.compose.ui.unit.dp
 import com.paulo.core_ui.LocalSpacing
 
 import com.paulo.tracker_presentation.tracker_overview.Meal
@@ -72,7 +73,9 @@ fun ExpandableMeal(
                 }
                 Spacer(modifier = Modifier.height(spacing.spaceSmall))
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(15.dp, 0.dp),
+
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     UnitDisplay(
